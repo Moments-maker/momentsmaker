@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import NavBar from './Components/navbar/Navbar';
 import Homepage from './Components/homepage/Homepage';
@@ -9,7 +8,6 @@ import Events from './Components/events/Events';
 
 import {
   BrowserRouter as Router,
-  // Switch,
   Routes,
   Route
 
@@ -23,7 +21,7 @@ function App() {
   })
   return (
     <div className="App">
-      {/* <NavBar/> */}
+      <NavBar/>
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage/>}>

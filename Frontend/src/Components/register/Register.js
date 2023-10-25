@@ -84,7 +84,7 @@ const Register = () => {
     };
 
     return (
-        <div className="bg-background  bg-cover bg-center w-screen  h-screen">
+        <div className="bg-cover bg-center w-screen  h-screen">
             <Grid className='flex flex-center'>
                 <Paper elevation={10} style={paperStyle}>
                     <Grid align='center'>

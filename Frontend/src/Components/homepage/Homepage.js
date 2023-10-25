@@ -33,7 +33,7 @@ const Homepage = () => {
   ];
   return (
     <div
-      className="bg-backgroundLogin bg-cover bg-center w-screen  h-screen  text-black text-black"
+      className="bg-backgroundLogin opacity-65  bg-cover bg-center w-screen  h-screen  text-black text-black"
     >
       <div className="flex justify-between items-center w-full h-19 px-4  fixed">
         <div>
@@ -73,9 +73,6 @@ const Homepage = () => {
           </ul>
         )}
       </div>
-      {/* <h2 className="grid grid-cols-3 gap-4 text-left sm:text-center md:text-right md:text-justify md:text-center text-4md sm:text-2xl font-bold text-black">
-        MOMENTS MAKER
-      </h2> */}
       <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-white">
         <div className="flex flex-col justify-center h-full">
           <h2 className="text-4xl sm:text-6xl font-bold text-white-200">
@@ -85,26 +82,12 @@ const Homepage = () => {
             <p className="py-6 text-centre">
               One Stop destination to plan your events
             </p>
-
           </div>
-
-
-
-
-
         </div>
-
-
       </div>
       <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-black">
         <div className="flex flex-col justify-center h-full">
-
           <div className="grid grid-cols-2 gap-4" >
-            {/* <p className="py-6">
-          IT'S ALL IN THE DETAILS
-            <div className="py-4">           
-          </div>
-          </p>  */}
           </div>
         </div>
       </div>

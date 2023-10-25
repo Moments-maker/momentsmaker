@@ -88,7 +88,7 @@ const Login = () => {
     
 
     return (
-        <Grid className='bg-background  bg-cover bg-center w-screen  h-screen flex bg-center'>
+        <Grid className='bg-cover bg-center w-screen  h-screen flex bg-center'>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
                     <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
