@@ -9,6 +9,7 @@ const NavBar = () => {
     {
         id: 1,
         link: "home",
+        path:"/"
       },
       {
         id: 2,
@@ -17,10 +18,12 @@ const NavBar = () => {
       {
         id: 3,
         link: "events",
+        path: "/events"
       },
       {
         id: 4,
         link: "Register",
+        path: "/Register"
       },
   ];
 
@@ -60,11 +63,11 @@ const NavBar = () => {
             >
               <Link
                 onClick={() => setNav(!nav)}
-                to={link}
+                to={"/"}
                 smooth
                 duration={500}
               >
-                {link}
+                {path}
               </Link>
             </li>
           ))}

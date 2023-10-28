@@ -4,7 +4,7 @@ import Homepage from './Components/homepage/Homepage';
 import Login from './Components/login/Login';
 import Register from './Components/register/Register';
 import Events from './Components/events/Events';
-
+import Wedding from './Components/events/Wedding';
 
 import {
   BrowserRouter as Router,
@@ -13,6 +13,7 @@ import {
 
 } from "react-router-dom";
 import { useState } from 'react';
+import Sidebar from './Components/sidebar/Sidebar';
 
 
 function App() {
@@ -21,15 +22,14 @@ function App() {
   })
   return (
     <div className="App">
-      <NavBar/>
+      {/* <Sidebar/> */}
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage/>}>
-            {/* {
-              user && user._id ? <Homepage /> : <Login />
-            }<Homepage /> */}
             
           </Route>
+          <Route path='/Sidebar' element={<Sidebar/>}></Route>
+          <Route path='/Wedding' element={<Wedding/>}></Route>
           <Route path='/Navbar' element={<NavBar/>}></Route>
           <Route path="/Login" element={<Login/>}></Route>
           {/* <Route path="/Login"><Login setLoginUser={setLoginUser} /></Route> */}

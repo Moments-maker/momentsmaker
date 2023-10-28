@@ -8,8 +8,8 @@ const register = async (req, res) => {
   
   const emailAlreadyExists = await User.findOne({ email });
   if (emailAlreadyExists) {
-    throw new CustomError.BadRequestError('Email already exists');
-    // res.status(400).json({ error: 'Email already exists' });
+    res.status(400).json({ error: 'Email already exists' });
+    throw new CustomError.BadRequestError('Email already exists'); 
   }
 
   // first registered user is an admin

@@ -3,8 +3,6 @@ import Button from '@mui/material/Button';
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
-import Register from '../register/Register';
-import { Navigate } from 'react-router-dom';
 
 const Homepage = () => {
   const [nav, setNav] = useState(false);
@@ -33,16 +31,17 @@ const Homepage = () => {
   ];
   return (
     <div
-      className="bg-backgroundLogin opacity-65  bg-cover bg-center w-screen  h-screen  text-black text-black"
+      className="bg-background bg-opacity-50 bg-cover bg-center w-full h-screen text-white"
     >
-      <div className="flex justify-between items-center w-full h-19 px-4  fixed">
+      <div className="flex justify-between items-center w-full h-19 px-4   fixed">
         <div>
-          <h1 className="text-3xl text-grey-500 font-signature ml-2">Moments Maker</h1>
+          <h1 className="text-3xl text-grey-500 font-signature ml-2">Moments </h1>
+          <div><h1 className="text-3xl text-grey-500 font-signature ml-2">Maker </h1></div>
         </div>
 
-        <ul className="flex space-x-4 hidden md:flex px-4">
-          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Home">Home</a></li>
-          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Events</a></li>
+        <ul className="flex space-x-4 hidden md:flex px-4 text-gray-50">
+          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
+          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Home">About</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
         </ul>
@@ -75,17 +74,17 @@ const Homepage = () => {
       </div>
       <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-white">
         <div className="flex flex-col justify-center h-full">
-          <h2 className="text-4xl sm:text-6xl font-bold text-white-200">
+          <h2 className="text-4xl sm:text-6xl font-bold text-white">
             WELCOME TO MOMENTS MAKER
           </h2>
           <div className="grid grid-cols-2 gap-4" >
-            <p className="py-6 text-centre">
+            <p className="py-6 text-centre text-lg font-extrabold">
               One Stop destination to plan your events
             </p>
           </div>
         </div>
       </div>
-      <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-black">
+      <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-white">
         <div className="flex flex-col justify-center h-full">
           <div className="grid grid-cols-2 gap-4" >
           </div>
