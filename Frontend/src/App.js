@@ -5,6 +5,7 @@ import Login from './Components/login/Login';
 import Register from './Components/register/Register';
 import Events from './Components/events/Events';
 import Wedding from './Components/events/Wedding';
+import About from './Components/about/About';
 
 import {
   BrowserRouter as Router,
@@ -25,9 +26,9 @@ function App() {
       {/* <Sidebar/> */}
       <Router>
         <Routes>
-          <Route exact path="/" element={<Homepage/>}>
-            
-          </Route>
+          <Route exact path="/" element={<Homepage/>}></Route>
+         
+          <Route exact path="/about" element={<About/>}></Route>
           <Route path='/Sidebar' element={<Sidebar/>}></Route>
           <Route path='/Wedding' element={<Wedding/>}></Route>
           <Route path='/Navbar' element={<NavBar/>}></Route>

@@ -16,7 +16,7 @@ const Homepage = () => {
     {
       id: 2,
       link: "about",
-      path: "/home",
+      path: "/about",
     },
     {
       id: 3,
@@ -31,7 +31,8 @@ const Homepage = () => {
   ];
   return (
     <div
-      className="bg-background bg-opacity-50 bg-cover bg-center w-full h-screen text-white"
+    name="home"
+      className="bg-about bg-opacity-50 bg-cover bg-center w-full h-screen overflow-hidden text-black"
     >
       <div className="flex justify-between items-center w-full h-19 px-4   fixed">
         <div>
@@ -39,10 +40,10 @@ const Homepage = () => {
           <div><h1 className="text-3xl text-grey-500 font-signature ml-2">Maker </h1></div>
         </div>
 
-        <ul className="flex space-x-4 hidden md:flex px-4 text-gray-50">
+        <ul className="flex space-x-4 hidden md:flex px-4 text-black">
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
+          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>
-          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Home">About</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
         </ul>
         <div
@@ -72,9 +73,9 @@ const Homepage = () => {
           </ul>
         )}
       </div>
-      <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-white">
+      <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-black">
         <div className="flex flex-col justify-center h-full">
-          <h2 className="text-4xl sm:text-6xl font-bold text-white">
+          <h2 className="text-4xl sm:text-6xl font-bold text-black">
             WELCOME TO MOMENTS MAKER
           </h2>
           <div className="grid grid-cols-2 gap-4" >
