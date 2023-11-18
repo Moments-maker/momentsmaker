@@ -6,6 +6,8 @@ import Register from './Components/register/Register';
 import Events from './Components/events/Events';
 import Wedding from './Components/events/Wedding';
 import About from './Components/about/About';
+import ForgotPassword from './Components/forgotPassword/ForgotPassword';
+import NewPassword from './Components/newPassword/NewPassword';
 
 import {
   BrowserRouter as Router,
@@ -35,6 +37,8 @@ function App() {
           <Route path="/Login" element={<Login/>}></Route>
           {/* <Route path="/Login"><Login setLoginUser={setLoginUser} /></Route> */}
           <Route path="/Register" element={<Register/>}></Route>
+          <Route path="/ForgotPassword" element={<ForgotPassword/>}></Route>
+          <Route path="/NewPassword" element={<NewPassword/>}></Route>
           <Route path="/Events" element={<Events/>}></Route>
         </Routes>
 

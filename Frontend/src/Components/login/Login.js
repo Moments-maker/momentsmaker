@@ -142,6 +142,13 @@ return(
                   value={password}
                 />
               </div>
+            <div>
+              <p className="mt-2 text-right text-sm text-gray-500">
+                <a href="/ForgotPassword" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                Forgot Password ?
+                </a>
+              </p>
+            </div>
             </div>
             <Snackbar
           open={open}
