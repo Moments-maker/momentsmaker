@@ -36,11 +36,13 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new CustomError.UnauthenticatedError('Invalid Credentials');
   }
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
+  var tokenUser = createTokenUser(user);
+  const token  = attachCookiesToResponse({ res, user: tokenUser });
+  tokenUser.token = token;
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };
+
 const logout = async (req, res) => {
   res.cookie('token', 'logout', {
     httpOnly: true,
@@ -49,8 +51,9 @@ const logout = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
 
+
 module.exports = {
   register,
   login,
-  logout,
+  logout
 };

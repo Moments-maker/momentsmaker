@@ -1,15 +1,16 @@
 const Product = require('../models/Product');
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const fs = require('fs')
 
 const createProduct = async (req, res) => {
-  req.body.user = req.user.userId;
+  // req.body.user = req.user.userId;
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });
 };
 const getAllProducts = async (req, res) => {
-  const products = await Product.find({});
+  const products = await Product.find(req.query);
 
   res.status(StatusCodes.OK).json({ products, count: products.length });
 };
@@ -51,29 +52,22 @@ const deleteProduct = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Success! Product removed.' });
 };
 const uploadImage = async (req, res) => {
-  if (!req.files) {
-    throw new CustomError.BadRequestError('No File Uploaded');
-  }
-  const productImage = req.files.image;
+  
+  console.log(req.files)
 
-  if (!productImage.mimetype.startsWith('image')) {
-    throw new CustomError.BadRequestError('Please Upload Image');
+  if(!req.files.image.tempFilePath){
+    throw new CustomError.BadRequestError('No image uploaded')
   }
 
-  const maxSize = 1024 * 1024;
-
-  if (productImage.size > maxSize) {
-    throw new CustomError.BadRequestError(
-      'Please upload image smaller than 1MB'
-    );
-  }
-
-  const imagePath = path.join(
-    __dirname,
-    '../public/uploads/' + `${productImage.name}`
+  const result = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,
+    {
+      use_filename: true,
+      folder: 'file-upload',
+    }
   );
-  await productImage.mv(imagePath);
-  res.status(StatusCodes.OK).json({ image: `/uploads/${productImage.name}` });
+  fs.unlinkSync(req.files.image.tempFilePath);
+  return res.status(StatusCodes.OK).json({ image: { src: result.secure_url } });
 };
 
 module.exports = {

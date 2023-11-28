@@ -6,6 +6,9 @@ import Register from './Components/register/Register';
 import Events from './Components/events/Events';
 import Wedding from './Components/events/Wedding';
 import About from './Components/about/About';
+import PostAd from './Components/postAd/PostAd';
+import VendorRegister from './Components/register/VendorRegister';
+import Photography from './Components/services/Photography';
 
 import {
   BrowserRouter as Router,
@@ -15,6 +18,7 @@ import {
 } from "react-router-dom";
 import { useState } from 'react';
 import Sidebar from './Components/sidebar/Sidebar';
+
 
 
 function App() {
@@ -35,7 +39,10 @@ function App() {
           <Route path="/Login" element={<Login/>}></Route>
           {/* <Route path="/Login"><Login setLoginUser={setLoginUser} /></Route> */}
           <Route path="/Register" element={<Register/>}></Route>
+          <Route path="/VendorRegister" element={<VendorRegister/>}></Route>
           <Route path="/Events" element={<Events/>}></Route>
+          <Route path="/PostAd" element={<PostAd/>}></Route>
+          <Route name="Photography" path="/Photography" element={<Photography/>}></Route>
         </Routes>
 
       </Router>
