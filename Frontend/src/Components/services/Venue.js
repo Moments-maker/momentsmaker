@@ -32,7 +32,7 @@ const Photography = ({ route }) => {
         }),
     }));
 
-    const BASE_URL = "http://localhost:5000/api/v1/products?category=Photography";
+    const BASE_URL = "http://localhost:5000/api/v1/products?category=Venue";
 
     // const {data} = route.params;
     const [data, setData] = useState();
@@ -100,7 +100,7 @@ const Photography = ({ route }) => {
                         <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
                     </div>
                     <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
-                        PHOTOGRAPHY
+                        VENUE
 
                     </div>
                     <ul className="flex space-x-4 hidden md:flex px-4 text-black">
@@ -139,7 +139,7 @@ const Photography = ({ route }) => {
                 <div className='flex center'>
 
                 </div>
-                <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
+                {data ? <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
                     <div className="flex justify-between items-center w-full h-19 px-4  fixed">
                         <div
                             onClick={() => setNav(!nav)}
@@ -181,15 +181,15 @@ const Photography = ({ route }) => {
                         })
                     }
                 </div> */}
-
+                
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">
                     {/* <Image cloudName='dz9d1dzrj' publicId="ho5wcuwbdkupayscdywi"></Image> */}
-
+                    
                         {console.log((data[0].createdAt))}
 
                         {data.map(({ id, contact, email, description, name, createdAt, image }) => (
 
-                            <Card sx={{ maxWidth: 500 }} key={id}>
+                            <Card sx={{ maxWidth: 345 }} key={id}>
                                 <CardHeader
                                     avatar={
                                         <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
@@ -262,7 +262,11 @@ const Photography = ({ route }) => {
                             // </div>
                         ))}
                     </div>
-                </div>
+                </div>:
+                <div>
+                    No data found
+                </div>}
+               
                 <br></br>
 
             </div> :

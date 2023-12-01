@@ -26,7 +26,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [msg, setMsg] = useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -72,7 +72,7 @@ const Login = () => {
       })
 
       if (res.status == 200) {
-        navigate('/Events', { email })
+        
         const jsonResponse = await res.json();
 
         const token = jsonResponse.user.token;
@@ -80,16 +80,18 @@ const Login = () => {
         const oneDay = 1000 * 60 * 60 * 24;
 
         let cookies = new Cookies();
-        
+
         cookies.set('token', token,
           {
             path: '/',
             expires: new Date(Date.now() + oneDay),
           });
 
-          console.log(cookies.get('token'));
-        
-        
+        // console.log(cookies.get('token'));
+        // setIsLoggedIn(true)
+        localStorage.setItem('authToken', cookies.get('token'));
+        console.log(localStorage.getItem("authToken"));
+        navigate('/Events', { isLoggedIn })
       }
       else {
         console.log(res);

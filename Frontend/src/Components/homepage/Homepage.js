@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
+import { Navigate } from 'react-router-dom';
 
 const Homepage = () => {
   const [nav, setNav] = useState(false);
@@ -29,6 +30,15 @@ const Homepage = () => {
       path: "/Register",
     },
   ];
+  const handleLogout = async()=>{
+    const url = "http://localhost:5000/api/v1/auth/logout";
+    await fetch(url);
+    localStorage.removeItem('authToken');
+    alert("user logged out");
+  }
+  // const handleEventsClick = async()=>{
+  //   Navigate("/login")
+  // }
   return (
     <div
     name="home"
@@ -45,6 +55,7 @@ const Homepage = () => {
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
+          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><Button onClick={handleLogout}>Logout</Button></li>
         </ul>
         <div
           onClick={() => setNav(!nav)}
