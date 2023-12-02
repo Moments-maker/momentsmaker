@@ -63,7 +63,7 @@ const Register = () => {
                 body: JSON.stringify(user),
             }).then(response => {
                 if (response.status === 201) {
-                    console.log(response)
+                    // console.log(response)
                     alert("user successfully registered")
                     console.log('Success');
                     setMsg("user successfully registered")
@@ -158,7 +158,7 @@ const Register = () => {
                       onClick={handleSubmit}
                       className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
-                      Sign in
+                      Sign Up
                     </button>
                   </div>
                 </form>

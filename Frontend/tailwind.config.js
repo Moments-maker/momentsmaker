@@ -7,7 +7,7 @@ module.exports = {
         'background': "url('../src/assets/Background5.jpg')",
         'backgroundLogin': "url('../src/assets/Background.png')",
         'about': "url('../src/assets/About.jpg')",
-       })
+       }),
     },
   },
   plugins: [],

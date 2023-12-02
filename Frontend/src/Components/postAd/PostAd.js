@@ -22,10 +22,7 @@ import profile from "../../assets/Profile.png";
 const rootUrl = 'http://localhost:5000';
 
 const PostAd = () => {
-    // const paperStyle = { padding: 20, height: '60vh', width: 280, margin: "20px auto" }
-    // const avatarStyle = { backgroundColor: '#1bbd7e' }
-    // const btnstyle = { margin: '8px 0' }
-    // const navigate = useNavigate()
+    
     const fetchLogout = async () => {
         const url = `${rootUrl}/api/v1/auth/logout`;
         await fetch(url);
@@ -35,6 +32,7 @@ const PostAd = () => {
     const btnstyle = { margin: '8px 0' }
 
     // const [name, setname] = useState('');
+    const userId = localStorage.getItem("userId")
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
@@ -45,7 +43,6 @@ const PostAd = () => {
     const [image, setImage] = useState('');
     const [showPassword, setShowPassword] = React.useState(false);
     const [fileUrl, setFileUrl] = useState('');
-
     const [open, setOpen] = React.useState(false);
     const navigate = useNavigate()
 
@@ -64,6 +61,7 @@ const PostAd = () => {
     const handleChange = (event) => {
         setCategory(event.target.value);
     };
+  
     const names = [
         'Photography',
         'Dining',
@@ -111,9 +109,12 @@ const PostAd = () => {
 
     const handleSubmit = async (e) => {
         console.log("image",image)
+
         e.preventDefault();
         // if (!email || !password) return;
-        const user = { name, email, contact, description, category, image };
+        
+        const user = { name, email, contact, description, category, image, userId };
+        console.log(user)
         try {
             const cookies = new Cookies();
             const url = `${rootUrl}/api/v1/products`;
@@ -145,7 +146,6 @@ const PostAd = () => {
             setPassword('');
             setEmail('');
             setOpen(true);
-
         } catch (error) {
             console.log(error);
         }
@@ -179,23 +179,19 @@ const PostAd = () => {
         localStorage.getItem("authToken") ?
 
 
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+            <div className="flex bg-[#ffe7e3] min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 {/* <div className="flex justify-between items-center w-full h-19 px-4   fixed"> */}
                 <div>
                     <h1 className="text-3xl text-black font-signature ml-2">Moments </h1>
                     <div><h1 className="text-3xl text-black font-signature ml-2">Maker </h1></div>
+                    
                 </div>
-                {/* </div> */}
-                <Paper elevation={3}>
-                    <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                
+                <Paper elevation={3} width={66}>
+                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
                         Post your Advertisement
                     </h2>
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                        {/* <img
-                    className="mx-auto h-20 w-auto"
-                    src={profile}
-                    alt="Your Company"
-                /> */}
                     </div>
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form className="space-y-6" onSubmit={handleSubmit} method="POST">
@@ -334,7 +330,7 @@ const PostAd = () => {
                                     onClick={handleSubmit}
                                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 >
-                                    Sign up
+                                    Post Ad
                                 </button>
                             </div>
                         </form>

@@ -19,7 +19,7 @@ import {
     useNavigate,
 } from 'react-router-dom';
 
-const Photography = ({ route }) => {
+const Venue = ({ route }) => {
 
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
@@ -139,7 +139,8 @@ const Photography = ({ route }) => {
                 <div className='flex center'>
 
                 </div>
-                {data ? <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
+                { Array.isArray(data) && data.length > 0 ? 
+                <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
                     <div className="flex justify-between items-center w-full h-19 px-4  fixed">
                         <div
                             onClick={() => setNav(!nav)}
@@ -171,19 +172,8 @@ const Photography = ({ route }) => {
                     <div>
                     </div>
                     <br></br>
-                    {/* <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-black text-center py-16 px-12 sm:px-0">
-                {data[0].email}
-                        {console.log(data[0].email)}
-                    {
-                        data.map(dataObj => {
-                            <h1>{dataObj.contact}</h1>
-                            console.log(dataObj.email)
-                        })
-                    }
-                </div> */}
                 
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">
-                    {/* <Image cloudName='dz9d1dzrj' publicId="ho5wcuwbdkupayscdywi"></Image> */}
                     
                         {console.log((data[0].createdAt))}
 
@@ -205,30 +195,17 @@ const Photography = ({ route }) => {
                                     subheader={createdAt}
                                 />
                                 <CardMedia height="194" alt="Alternate text">
-                                {/* <Image cloudName='dz9d1dzrj' publicId="838ea5c3ad94222f3c63fcea40f84c9b"></Image> */}
                                 </CardMedia>
                                 <Image cloudName='dz9d1dzrj' publicId={image}></Image>
-
-                                {/* <CardMedia
-                                    component="img"
-                                    height="194"
-                                    image={imageUrl}
-                                    alt="Paella dish"
-                                /> */}
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary">
-                                        {/* This impressive paella is a perfect party dish and a fun meal to cook
-                                        together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                        if you like. */}
                                         {description}
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
-                                        {/* <FavoriteIcon /> */}
                                     </IconButton>
                                     <IconButton aria-label="share">
-                                        {/* <ShareIcon /> */}
                                     </IconButton>
                                     <ExpandMore
                                         expand={expanded}
@@ -236,42 +213,23 @@ const Photography = ({ route }) => {
                                         aria-expanded={expanded}
                                         aria-label="show more"
                                     >
-                                        {/* <ExpandMoreIcon /> */}
+                                       
                                     </ExpandMore>
                                 </CardActions>
                             </Card>
-                            // <div key={id} className="flex items-right justify-right  bg-purple-300 h-52 w-60">
-                            //     <div className="group h-52 w-60 [perspective:1000px]">
-                            //         <div className="relative h-52 w-60  shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                            //             <div className="absolute inset-0 py-2">
-                            //                 <p className="text-sm py-4">Name : {name}</p>
-                            //                 <p className="text-sm py-4">Email : {email}</p>
-                            //                 <p className="text-sm py-4">Contact : {contact}</p>
-                            //                 <p className="text-sm py-4">Description : {description}</p>
-                            //                                                         </div>
-                            //             <div className="absolute inset-0 h-full w-full  bg-black/80 px-12 text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                            //                 <div className="flex min-h-full flex-col">
-                            //                     <p className="text-sm py-4">Email : {email}</p>
-                            //                     <p className="text-sm py-4">Contact : {contact}</p>
-                            //                     <p className="text-sm py-4">Description : {description}</p>
-                            //                     <p className="text-base"></p>
-                            //                 </div>
-                            //             </div>
-                            //         </div>
-                            //     </div>
-                            // </div>
                         ))}
                     </div>
                 </div>:
-                <div>
-                    No data found
+                <div className='text-black font-extrabold'>
+                     <h1>No Data Found</h1>
                 </div>}
                
                 <br></br>
 
             </div> :
-            <div>
+            <div className='text-black font-extrabold'>
+                <h1>No Data Found</h1>
             </div>
     );
 }
-export default Photography
+export default Venue

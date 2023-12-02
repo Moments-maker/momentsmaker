@@ -138,7 +138,7 @@ const Wedding = () => {
         localStorage.getItem("authToken")?
         <div
             name="skills"
-            className=" w-full h-screen "
+            className=" w-full h-screen bg-[#ffe7e3] "
         >
             <div className="flex justify-between items-center w-full h-21 px-4  fixed">
                 <div>

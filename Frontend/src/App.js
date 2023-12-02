@@ -5,6 +5,7 @@ import Login from './Components/login/Login';
 import Register from './Components/register/Register';
 import Events from './Components/events/Events';
 import User from './Components/user/User';
+import Samp from './Components/events/Samp';
 
 import About from './Components/about/About';
 import PostAd from './Components/postAd/PostAd';
@@ -46,10 +47,11 @@ function App() {
   return (
     <div className="App">
       {/* <Sidebar/> */}
+      {/* <Homepage></Homepage>
+        <About></About> */}
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage/>}></Route>
-         
           <Route exact path="/about" element={<About/>}></Route>
           <Route path='/Sidebar' element={<Sidebar/>}></Route>
           <Route path='/User' element={<User/>}></Route>
@@ -77,6 +79,7 @@ function App() {
           <Route path="/ThemedParty" element={<ThemedParty/>}></Route>
           <Route path='/Wedding' element={<Wedding/>}></Route>
           <Route path='/Concert' element={<Concert/>}></Route>
+          <Route path='/Samp' element={<Samp/>}></Route>
         </Routes>
 
       </Router>

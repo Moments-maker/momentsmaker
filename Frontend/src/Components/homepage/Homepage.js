@@ -49,13 +49,15 @@ const Homepage = () => {
           <h1 className="text-3xl text-grey-500 font-signature ml-2">Moments </h1>
           <div><h1 className="text-3xl text-grey-500 font-signature ml-2">Maker </h1></div>
         </div>
-
+        
         <ul className="flex space-x-4 hidden md:flex px-4 text-black">
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>
+          {localStorage.getItem("authToken") ?<li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href= "/Events">Events</a></li>
+        :
+        <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href= "/Login">Events</a></li>}
           <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
-          <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><Button onClick={handleLogout}>Logout</Button></li>
+          <li className='cursor-pointer capitalize font-medium text-black hover:scale-105 duration-200'><Button onClick={handleLogout} variant="text">Logout</Button></li>
         </ul>
         <div
           onClick={() => setNav(!nav)}
