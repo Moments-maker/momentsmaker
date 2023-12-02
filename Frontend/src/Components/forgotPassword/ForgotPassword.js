@@ -58,6 +58,10 @@ const ForgotPassword = () => {
                     console.log('OTP sent successfully');
                     setMsg("OTP sent successfully")
                 }
+                else if(response.status === 400){
+                    alert("Invalid email ID, Please enter a valid email.")
+                    console.log('Invalid email ID')
+                }
                 else{
                     console.log('OTP not sent');
                     console.log(response.body.msg)

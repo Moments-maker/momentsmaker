@@ -15,7 +15,7 @@ import NavBar from '../navbar/Navbar';
 import Sidebar from '../sidebar/Sidebar';
 import {
     useNavigate,
-  } from 'react-router-dom';
+} from 'react-router-dom';
 
 const Events = () => {
     const [nav, setNav] = useState(false);
@@ -93,21 +93,22 @@ const Events = () => {
             className=" w-full h-screen "
         >
             <div className="flex justify-between items-center w-full h-21 px-4  fixed">
-      <div>
-        <h1 className="text-3xl font-signature text-gray-500 ml-2">Moments </h1>
-        <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
-      </div>
-      <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
-                            EVENTS 
-                        
-        </div>
-        <ul className="flex space-x-4 hidden md:flex px-4 text-black">
-          <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
-          {/* <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li> */}
-          <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-          <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/Login">Post Add</a></li>
-        </ul>
-      {/* <ul className="hidden md:flex">
+                <div>
+                    <h1 className="text-3xl font-signature text-gray-500 ml-2">Moments </h1>
+                    <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
+                </div>
+                <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
+                    EVENTS
+
+                </div>
+                <ul className="flex space-x-4 hidden md:flex px-4 text-black">
+                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
+                    {/* <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li> */}
+                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
+                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/Login">Post Add</a></li>
+                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/Login">Profile</a></li>
+                </ul>
+                {/* <ul className="hidden md:flex">
         {links.map(({ id, link }) => (
           <li
             key={id}
@@ -120,34 +121,34 @@ const Events = () => {
         ))}
       </ul> */}
 
-      <div
-        onClick={() => setNav(!nav)}
-        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-      >
-        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-      </div>
+                <div
+                    onClick={() => setNav(!nav)}
+                    className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
+                >
+                    {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
+                </div>
 
-      {nav && (
-        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-          {links.map(({ id, link, path }) => (
-            
-            <li
-              key={id}
-              className="px-4 cursor-pointer capitalize py-6 text-4xl"
-            >
-              <Link
-                onClick={() => setNav(!nav)}
-                to={"/"}
-                smooth
-                duration={500}
-              >
-                {path}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+                {nav && (
+                    <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
+                        {links.map(({ id, link, path }) => (
+
+                            <li
+                                key={id}
+                                className="px-4 cursor-pointer capitalize py-6 text-4xl"
+                            >
+                                <Link
+                                    onClick={() => setNav(!nav)}
+                                    to={"/"}
+                                    smooth
+                                    duration={500}
+                                >
+                                    {path}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
             <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full ">
                 <div className="flex justify-between items-center w-full h-19 px-4  fixed">
                     <div
@@ -178,13 +179,13 @@ const Events = () => {
                     )}
                 </div>
                 <div>
-                
-                    
+
+
 
                 </div>
                 <br></br>
                 <div className="w-full grid grid-cols-3 sm:grid-cols-3 gap-8 text-white text-center py-8 px-12 sm:px-0">
-                    {events.map(({ id, title, src, style, description,path }) => (
+                    {events.map(({ id, title, src, style, description, path }) => (
 
                         <div key={id} class="flex items-center justify-center  bg-purple-300 h-44 w-60">
                             <div class="group h-44 w-60 [perspective:1000px]">

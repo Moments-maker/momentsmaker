@@ -25,6 +25,14 @@ const register = async (req, res) => {
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
+const updatePassword = async (req,res)=>{
+  const { email } = req.body;
+
+  const user = await User.findOne({email});
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+}
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -73,6 +81,17 @@ const verifyOTP = async (req,res) => {
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
+  try{
+    const emailAlreadyExists = await User.findOne({email:email});
+    console.log(emailAlreadyExists);
+    if (!emailAlreadyExists) {
+      res.status(400).json({ error: 'Email does not exists' });
+      throw new CustomError.BadRequestError('Email does not exists'); 
+    }
+  }
+  catch(error){
+    console.log(error)
+  }
 
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
