@@ -14,12 +14,38 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import { Image } from 'cloudinary-react';
+import { Button } from '@mui/material';
+
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 import {
     useNavigate,
 } from 'react-router-dom';
 
 const User = ({ route }) => {
+
+    const [open, setOpen] = React.useState(false);
+    const [deletePost, setDeletePost] = useState(null);
+    const theme = useTheme();
+    const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+    const handleClickOpen = (id) => {
+        console.log(id)
+        setOpen(true);
+        setDeletePost(id);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
 
     const ExpandMore = styled((props) => {
         const { expand, ...other } = props;
@@ -43,7 +69,7 @@ const User = ({ route }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [expanded, setExpanded] = React.useState(false);
-    
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -78,24 +104,38 @@ const User = ({ route }) => {
                 return response.json()
             })
             .then(data => {
-                console.log(BASE_URL)
+                // console.log(BASE_URL)
                 setData(data.products)
                 setAssetId(data.products.image)
                 setLoading(true)
             })
+
     }
 
     useEffect(() => {
         fetchData()
     }, [])
 
-    const handleDelete=()=>{
-        console.log("clicked")
-    }
+    const handleDelete = async () => {
+        console.log(deletePost)
+        const YOUR_URL = `http://localhost:5000/api/v1/products/${deletePost}`
+        console.log(YOUR_URL)
+        const response = await fetch(YOUR_URL, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
 
+        const data1 = await response.json();
+        console.log(data1);
+        setOpen(false)
+        fetchData()
+        // alert("Post successfully deleted")
+    };
 
     return (
-        localStorage.getItem("authToken") && loading? 
+        localStorage.getItem("authToken") && loading ?
             <div
                 name="skills"
                 className=" w-full h-screen "
@@ -107,7 +147,7 @@ const User = ({ route }) => {
                         <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
                     </div>
                     <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
-                        USER
+                        MY PROFILE
 
                     </div>
                     <ul className="flex space-x-4 hidden md:flex px-4 text-black">
@@ -178,12 +218,12 @@ const User = ({ route }) => {
                     <div>
                     </div>
                     <br></br>
-                   { Array.isArray(data) && data.length > 0} ? 
+                    {Array.isArray(data) && data.length > 0} ?
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">
 
                         {console.log((data))}
-                        {console.log(userId)}
-                        {data.map(({  contact, email, description, name, createdAt, image }) => (
+                        {/* {console.log(userId)} */}
+                        {data.map(({ id, contact, email, description, name, createdAt, image }) => (
 
                             <Card sx={{ maxWidth: 500 }}>
                                 <CardHeader
@@ -194,28 +234,29 @@ const User = ({ route }) => {
                                     }
                                     action={
                                         <IconButton aria-label="settings">
-                                            <MoreVertIcon onClick={handleDelete}/>
+                                            {/* <MoreVertIcon onClick={() => handleDelete(id)} /> */}
                                         </IconButton>
                                     }
                                     title={name}
-                                    // subheader={createdAt}
+                                // subheader={createdAt}
                                 />
-                                <CardMedia height="194" alt="Alternate text">
+                                <CardMedia absolute inset-0 alt="Alternate text">
+                                    <Image h-full w-full cloudName='dz9d1dzrj' publicId={image}></Image>
                                 </CardMedia>
-                                <Image cloudName='dz9d1dzrj' publicId={image}></Image>
+
 
                                 <CardContent>
                                     <Typography variant="body2" color="text.secondary">
-                                        
+
                                         {description}
                                     </Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
-                                     
+
                                     </IconButton>
                                     <IconButton aria-label="share">
-                                        
+
                                     </IconButton>
                                     <ExpandMore
                                         expand={expanded}
@@ -224,10 +265,31 @@ const User = ({ route }) => {
                                         aria-label="show more"
                                     >
                                     </ExpandMore>
+                                    <Button onClick={() => handleClickOpen(id)} color="error" variant="contained" size="small">Delete Post</Button>
+                                    <Dialog
+                                        fullScreen={fullScreen}
+                                        open={open}
+                                        onClose={handleClose}
+                                        aria-labelledby="responsive-dialog-title"
+                                    >
+                                        <DialogTitle id="responsive-dialog-title">
+                                            {" Are you sure, you want to delete your post?"}
+                                        </DialogTitle>
+                                        <DialogActions>
+                                            <Button color="error" onClick={() => handleDelete()}>
+                                                Delete
+                                            </Button>
+                                            <Button onClick={handleClose} autoFocus>
+                                                Cancel
+                                            </Button>
+                                        </DialogActions>
+                                    </Dialog>
+                                    {/* <div>Something went wrong</div> */}
                                 </CardActions>
+
                             </Card>
-                           
-                          
+
+
                         ))}
                     </div>
                 </div>

@@ -42,7 +42,7 @@ const Photography = ({ route }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [expanded, setExpanded] = React.useState(false);
-    
+
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -140,72 +140,29 @@ const Photography = ({ route }) => {
 
                 </div>
                 <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
-                    <div className="flex justify-between items-center w-full h-19 px-4  fixed">
-                        <div
-                            onClick={() => setNav(!nav)}
-                            className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-                        >
-                            {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                        </div>
 
-                        {nav && (
-                            <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-                                {links.map(({ id, link }) => (
-                                    <li
-                                        key={id}
-                                        className="px-4 cursor-pointer capitalize py-6 text-4xl"
-                                    >
-                                        <Link
-                                            onClick={() => setNav(!nav)}
-                                            to={link}
-                                            smooth
-                                            duration={500}
-                                        >
-                                            {link}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
                     <div>
                     </div>
                     <br></br>
-                    {/* <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-black text-center py-16 px-12 sm:px-0">
-                {data[0].email}
-                        {console.log(data[0].email)}
-                    {
-                        data.map(dataObj => {
-                            <h1>{dataObj.contact}</h1>
-                            console.log(dataObj.email)
-                        })
-                    }
-                </div> */}
 
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">
-                    {/* <Image cloudName='dz9d1dzrj' publicId="ho5wcuwbdkupayscdywi"></Image> */}
 
-                        {console.log((data[0].createdAt))}
 
-                        {data.map(({ id, contact, email, description, name, createdAt, image }) => (
+                        {data.map(({ id, contact, email, description, name, image }) => (
 
-                            <Card sx={{ maxWidth: 500 }} key={id}>
+                            <Card sx={{ maxWidth: 700 }} key={id}>
                                 <CardHeader
                                     avatar={
                                         <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
                                             {name[0]}
                                         </Avatar>
                                     }
-                                    action={
-                                        <IconButton aria-label="settings">
-                                            <MoreVertIcon />
-                                        </IconButton>
-                                    }
+                                    
                                     title={name}
-                                    subheader={createdAt}
+                                // subheader={createdAt}
                                 />
                                 <CardMedia height="194" alt="Alternate text">
-                                {/* <Image cloudName='dz9d1dzrj' publicId="838ea5c3ad94222f3c63fcea40f84c9b"></Image> */}
+                                    {/* <Image cloudName='dz9d1dzrj' publicId="838ea5c3ad94222f3c63fcea40f84c9b"></Image> */}
                                 </CardMedia>
                                 <Image cloudName='dz9d1dzrj' publicId={image}></Image>
 
@@ -216,12 +173,13 @@ const Photography = ({ route }) => {
                                     alt="Paella dish"
                                 /> */}
                                 <CardContent>
+                                    {description}
                                     <Typography variant="body2" color="text.secondary">
-                                        {/* This impressive paella is a perfect party dish and a fun meal to cook
-                                        together with your guests. Add 1 cup of frozen peas along with the mussels,
-                                        if you like. */}
-                                        {description}
+
+                                        CONTACT : {contact}
+
                                     </Typography>
+                                    <Typography className="flex align-right"variant="body2" color="text.secondary" size="small">EMAIL : {email}</Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
@@ -266,7 +224,8 @@ const Photography = ({ route }) => {
                 <br></br>
 
             </div> :
-            <div>
+            <div className='text-black font-extrabold'>
+                <h1>No Data Found</h1>
             </div>
     );
 }

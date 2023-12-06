@@ -26,6 +26,8 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import Login from '../login/Login';
+import ButtonBase from '@mui/material/ButtonBase';
+import { styled } from '@mui/material/styles';
 
 import {
     useNavigate,
@@ -58,6 +60,8 @@ const Events = ({ route }) => {
             path: "/PostAd",
         },
     ];
+
+
     const theme = useTheme();
     const location = useLocation();
     const param = localStorage.getItem("name");
@@ -114,6 +118,19 @@ const Events = ({ route }) => {
             path: "/Funeral"
         },
     ];
+
+
+
+    const ImageMarked = styled('span')(({ theme }) => ({
+        height: 3,
+        width: 18,
+        backgroundColor: theme.palette.common.white,
+        position: 'absolute',
+        bottom: -2,
+        left: 'calc(50% - 9px)',
+        transition: theme.transitions.create('opacity'),
+    }));
+
     const handleProfile = (event) => {
         setAnchorEl(event.currentTarget);
         // alert(param);
@@ -209,70 +226,27 @@ const Events = ({ route }) => {
                 </div>
 
                 <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full ">
-                    <div className="flex justify-between items-center w-full h-19 px-4">
-                        <div
-                            onClick={() => setNav(!nav)}
-                            className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-                        >
-                            {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                        </div>
 
-                        {nav && (
-                            <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-                                {links.map(({ id, link }) => (
-                                    <li
-                                        key={id}
-                                        className="px-4 cursor-pointer capitalize py-6 text-4xl"
-                                    >
-                                        <Link
-                                            onClick={() => setNav(!nav)}
-                                            to={link}
-                                            smooth
-                                            duration={500}
-                                        >
-                                            {link}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
+                    
 
                     <div className="w-full grid grid-cols-3 sm:grid-cols-3 gap-8 text-white text-center py-8 px-12 sm:px-0">
 
-
-
                         {events.map(({ id, title, src, style, description, path }) => (
-                            // <Card sx={{ display: 'flex' }} width={140} height={60} style={{ borderRadius: 0 }}>
-                            //     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                            //         <CardContent sx={{ flex: '1 0 auto' }}>
-                            //             <Typography component="div" variant="h5">
-                            //                 <Button onClick={() => handleClick(path)}>{title}</Button>
-                            //             </Typography>
-                            //             <Typography variant="subtitle1" color="text.secondary" component="div">
-                            //                 Services
-                            //             </Typography>
-                            //         </CardContent>
-                            //         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-
-                            //         </Box>
-                            //     </Box>
-                            //     <CardMedia
-                            //         component="img"
-                            //         sx={{ width: 200 }}
-                            //         image={src}
-                            //         alt="Wedding image"
-                            //     />
-                            // </Card>
-                            <div key={id} className="flex items-center justify-center  bg-purple-300 h-44 w-60">
+                        
+                            <div key={id} className="flex items-center justify-center h-44 w-60">
                                 <div className="group h-44 w-60 [perspective:1000px]">
-                                    <div className="relative h-44 w-60  shadow-xl transition-all duration-500 ">
+                                    <div className="relative h-44 w-60 shadow-xl ">
                                         <div className="absolute inset-0">
-                                            <img className="h-full w-full  object-cover shadow-xl shadow-black/40" src={src} alt="" />
+                                            {/* <ImageSrc style={{ backgroundImage:{src}}} /> */}
+                                            <img className="max-w-xs transition duration-300 ease-in-out hover:scale-110 h-44 w-60" src={src} alt="" />
                                         </div>
+                                        {/* <!-- TW Elements is free under AGPL, with commercial license required for specific uses. See more details: https://tw-elements.com/license/ and contact us for queries at tailwind@mdbootstrap.com --> */}
+
                                         <div className="absolute inset-0 h-full w-full   px-12 text-slate-200">
                                             <div className="flex min-h-full flex-col">
-                                                <Button className="text-lg font-bold " onClick={() => handleClick(path)}>{title}</Button>
+                                                {/* <ImageButton onClick={() => handleClick(path)}>{title}</ImageButton> */}
+                                                <Button className="text-lg font-bold position-relative " onClick={() => handleClick(path)}>{title}</Button>
+                                                {/* <ImageBackdrop className="MuiImageBackdrop-root" /> */}
                                                 <p className="text-sm py-4">{description}</p>
                                                 <p className="text-base"></p>
                                             </div>

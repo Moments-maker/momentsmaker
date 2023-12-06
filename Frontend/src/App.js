@@ -47,12 +47,11 @@ function App() {
   return (
     <div className="App">
       {/* <Sidebar/> */}
-      {/* <Homepage></Homepage>
-        <About></About> */}
+      {/* <Events/> */}
       <Router>
         <Routes>
           <Route exact path="/" element={<Homepage/>}></Route>
-          <Route exact path="/about" element={<About/>}></Route>
+          <Route path="/about" element={<About/>}></Route>
           <Route path='/Sidebar' element={<Sidebar/>}></Route>
           <Route path='/User' element={<User/>}></Route>
           
@@ -83,7 +82,7 @@ function App() {
         </Routes>
 
       </Router>
-
+      
     </div>
   );
 }
