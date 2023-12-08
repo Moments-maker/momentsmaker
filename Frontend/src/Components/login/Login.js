@@ -26,7 +26,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [msg, setMsg] = useState('');
   const [open, setOpen] = React.useState(false);
 
@@ -58,7 +58,7 @@ const Login = () => {
     e.preventDefault();
     if (!email || !password) return;
     const user = { email, password };
-    console.log(user)
+    // console.log(user)
     try {
       const url = `${rootUrl}/api/v1/auth/login`;
 
@@ -72,44 +72,30 @@ const Login = () => {
       })
 
       if (res.status == 200) {
-        navigate('/Events', { email })
-        const jsonResponse = await res.json();
+        const responseBody = await res.text();
 
+        // Parse JSON after saving body
+        const jsonResponse = JSON.parse(responseBody);
         const token = jsonResponse.user.token;
-
+  
         const oneDay = 1000 * 60 * 60 * 24;
-
         let cookies = new Cookies();
-        
-        cookies.set('token', token,
-          {
-            path: '/',
-            expires: new Date(Date.now() + oneDay),
-          });
-
-          console.log(cookies.get('token'));
-        
-        
+  
+        cookies.set('token', token, {
+          path: '/',
+          expires: new Date(Date.now() + oneDay),
+        });
+        console.log(jsonResponse.user)
+        localStorage.setItem('authToken', cookies.get('token'));
+        localStorage.setItem('name', jsonResponse.user.name);
+        localStorage.setItem('userId', jsonResponse.user.userId);
+        navigate('/Events', {  state: { param: jsonResponse.user.name }});
       }
       else {
         console.log(res);
         setMsg("Invalid credentials")
         console.log('Fail');
       }
-
-      // .then(response => {
-      //   if (response.status === 200) {
-      //     navigate('/Events', { email })
-      //     return response.json()
-      //   } else {
-      //     console.log(response);
-      //     setMsg("Invalid credentials")
-      //     console.log('Fail');
-      //   }
-      // }).then((data) => {
-      //   console.log(data); 
-      // });
-
       setPassword('');
       setEmail('');
       setOpen(true)
@@ -157,11 +143,7 @@ const Login = () => {
               <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Password
               </label>
-              {/* <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div> */}
+            
             </div>
             <div className="mt-2">
               <input
@@ -211,42 +193,6 @@ const Login = () => {
     </div>
   )
 
-  // return (
-
-  //   <Grid className='bg-cover bg-center w-screen  h-screen flex justify-centre bg-center align-center'>
-  //     <Paper elevation={10} style={paperStyle}>
-  //       <Grid align='center'>
-  //         <Avatar style={avatarStyle}><LockOutlinedIcon /></Avatar>
-  //       </Grid>
-  //       <label className='flex flex-centre'>Login</label>
-  //       <form className='form ' onSubmit={handleSubmit}>
-
-  //         <div className='form-row'>
-  //           <TextField
-  //             type="email"
-  //             name="email"
-  //             label="Email"
-  //             value={email}
-  //             onChange={(e) => setEmail(e.target.value)}
-  //           ></TextField>
-  //         </div>
-  //         <div className='form-row'>
-  //           <TextField id="standard-basic" label="Password" variant="standard" value={password} type='password'
-  //             onChange={(e) => setPassword(e.target.value)} />
-  //         </div>
-
-  //       </form>
-  //       <Button type='submit' className='py-8' onClick={handleSubmit} color='primary' variant="contained" style={btnstyle} fullWidth>Log in</Button>
-
-  //       <Typography > Don't have an account ?
-  //         <Link  >
-  //           <a href='/Register'>Sign Up
-  //           </a>
-  //         </Link>
-  //       </Typography>
-  //     </Paper>
-  //   </Grid>
-  // )
 }
 
 export default Login

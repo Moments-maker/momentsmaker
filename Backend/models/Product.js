@@ -15,13 +15,9 @@ const ProductSchema = new mongoose.Schema(
       default: 0,
     },
     email: {
+      unique: false,
       type: String,
-      // unique: true,
       required: [true, 'Please provide email'],
-      // validate: {
-      //   validator: validator.isEmail,
-      //   message: 'Please provide valid email',
-      // },
     },
     description: {
       type: String,
@@ -35,7 +31,7 @@ const ProductSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Please provide product category'],
-      enum: ['Photography', 'Dining', 'Venue', 'Decoration','Music', 'ClothingDesigner','MakeoverArtist'],
+      enum: ['Photography', 'Catering', 'Venue', 'Decoration','Music', 'ClothingDesigner','MakeoverArtist','WeddingOfficiate'],
     },
     // company: {
     //   type: String,
@@ -71,11 +67,11 @@ const ProductSchema = new mongoose.Schema(
     //   type: Number,
     //   default: 0,
     // },
-    // user: {
-    //   type: mongoose.Types.ObjectId,
-    //   ref: 'User',
-    //   required: true,
-    // },
+    userId: {
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

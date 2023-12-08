@@ -24,7 +24,7 @@ import {
     useNavigate,
 } from 'react-router-dom';
 
-const Wedding = () => {
+const Concert = () => {
 
     const BASE_URL = "http://localhost:5000/api/v1/products";
 
@@ -95,42 +95,35 @@ const Wedding = () => {
             src: halloween,
             title: "Venue",
             style: "shadow-yellow-500",
-            path: "/Venue"
         },
         {
             id: 4,
             src: concert,
             title: "Flowers",
             style: "shadow-yellow-500",
-            path: "/Decoration"
         },
         {
             id: 5,
             src: corporate,
             title: "DJ and music",
             style: "shadow-yellow-500",
-            path: "/Music"
         },
         {
             id: 6,
             src: funeral,
             title: "Makeover Artists",
             style: "shadow-yellow-500",
-            path: "/Mua"
         },
         {
             id: 7,
             src: designer,
             title: "Designer",
             style: "shadow-yellow-500",
-            path: "/Designer"
         },
         {
             id: 8,
             src: Officiate,
             title: "Officiate",
-            path: "/Officiate",
-            
             style: "shadow-yellow-500",
         },
     ];
@@ -138,7 +131,7 @@ const Wedding = () => {
         localStorage.getItem("authToken")?
         <div
             name="skills"
-            className=" w-full h-screen bg-[#ffe7e3] "
+            className=" w-full h-screen "
         >
             <div className="flex justify-between items-center w-full h-21 px-4  fixed">
                 <div>
@@ -146,7 +139,7 @@ const Wedding = () => {
                     <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
                 </div>
                 <div className=" flex justify-center  text-3xl ml-10 font-bold content-center text-purple-500">
-                    WEDDING
+                Concert
 
                 </div>
                 <ul className="flex space-x-4 hidden md:flex px-4 text-black">
@@ -243,4 +236,4 @@ const Wedding = () => {
         <div></div>
     );
 }
-export default Wedding
+export default Concert

@@ -3,6 +3,19 @@ const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const cloudinary = require('cloudinary').v2;
 const fs = require('fs')
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '.backend/public/uploads/') // Directory to store images
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 const createProduct = async (req, res) => {
   // req.body.user = req.user.userId;

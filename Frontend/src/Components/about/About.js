@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-scroll";
+import NavBar from "../navbar/Navbar";
 
 const About = () => {
     const [nav, setNav] = useState(false);
@@ -11,7 +12,7 @@ const About = () => {
         {
             id: 1,
             link: "home",
-            path: "/home",
+            path: "/",
         },
         {
             id: 2,
@@ -21,12 +22,12 @@ const About = () => {
         {
             id: 3,
             link: "events",
-            path: "/home",
+            path: "/events",
         },
         {
             id: 4,
-            link: "Register",
-            path: "/Register",
+            link: "Sign in",
+            path: "/Login",
         },
     ];
     return (
@@ -34,6 +35,7 @@ const About = () => {
             name="home"
             className="bg-about bg-opacity-50 bg-cover bg-center w-full h-screen overflow-hidden text-black"
         >
+            {/* <NavBar/> */}
             <div className="flex justify-between items-center w-full h-19 px-4   fixed">
                 <div>
                     <h1 className="text-3xl text-grey-500 font-signature ml-2">Moments </h1>
@@ -43,7 +45,7 @@ const About = () => {
                 <ul className="flex space-x-4 hidden md:flex px-4 text-black">
                     <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
                     <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-                    <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>
+                    <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Events">Events</a></li>
                     <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
                 </ul>
                 <div
