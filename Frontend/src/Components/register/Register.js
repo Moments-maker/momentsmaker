@@ -63,6 +63,7 @@ const Register = () => {
                 body: JSON.stringify(user),
             }).then(response => {
                 if (response.status === 201) {
+                    console.log(response)
                     alert("user successfully registered")
                     console.log('Success');
                     setMsg("user successfully registered")
@@ -163,9 +164,9 @@ const Register = () => {
                 </form>
       
                 <p className="mt-10 text-center text-sm text-gray-500">
-                  Not a member?{' '}
-                  <a href="/Register" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                    Sign up
+                  Already have an account?{' '}
+                  <a href="/Login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                    Sign in
                   </a>
                 </p>
               </div>

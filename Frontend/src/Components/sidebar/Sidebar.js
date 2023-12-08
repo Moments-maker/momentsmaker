@@ -17,6 +17,7 @@ import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import SpeakerIcon from '@mui/icons-material/Speaker';
 
 import { makeStyles } from '@material-ui/core/styles';
+const rootUrl = 'http://localhost:5000';
 
 const drawerWidth = 240;
 
@@ -26,6 +27,48 @@ const useStyles = makeStyles({
     color: 'slate'
   }
 });
+// const handlePhoto=()=>{
+//   console.log("clicked Photo")
+// };
+const handlePhoto = async (e) => {
+  e.preventDefault();
+  // if (!email || !password) return;
+  // const user = { name, email, contact, description, category };
+  // console.log(user)
+  try {
+      const url = `${rootUrl}/api/v1/products?category=Photography`;
+      console.log(url)
+      // const url = `/api/v1/auth/login`;
+      await fetch(url, {
+          method: 'GET',
+          headers: {
+              'Content-type': 'application/json',
+          },
+          // body: JSON.stringify(user),
+      }).then(response => {
+          if (response.status === 200) {
+              alert("vendor successfully registered")
+              console.log('Success');
+              console.log(response);
+              // setMsg("vendor successfully registered")
+              // navigate('/Events')
+          } else {
+              console.log('Fail');
+              console.log(response.body.msg)
+              // setMsg("Email Already exists")
+              console.log(response)
+          }
+      });
+
+      // setName('');
+      // setPassword('');
+      // setEmail('');
+      // setOpen(true);
+
+  } catch (error) {
+      console.log(error);
+  }
+};
 export default function PermanentDrawerLeft() {
   const styles = useStyles();
   return (
@@ -59,7 +102,7 @@ export default function PermanentDrawerLeft() {
               <ListItemIcon>
                 <VideoCameraBackIcon />
               </ListItemIcon>
-              <ListItemText>Photography</ListItemText>
+              <ListItemText onClick={handlePhoto}>Photography</ListItemText>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>

@@ -38,8 +38,8 @@ const Events = () => {
         },
         {
             id: 4,
-            link: "Post ADD",
-            path: "/Register",
+            link: "Post AD",
+            path: "/PostAd",
         },
     ];
     const handleClick = () => {
@@ -105,7 +105,7 @@ const Events = () => {
                     <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
                     {/* <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li> */}
                     <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/Login">Post Add</a></li>
+                    <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/PostAd">Post Ad</a></li>
                     <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/Login">Profile</a></li>
                 </ul>
                 {/* <ul className="hidden md:flex">
@@ -179,9 +179,6 @@ const Events = () => {
                     )}
                 </div>
                 <div>
-
-
-
                 </div>
                 <br></br>
                 <div className="w-full grid grid-cols-3 sm:grid-cols-3 gap-8 text-white text-center py-8 px-12 sm:px-0">

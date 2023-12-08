@@ -1,17 +1,27 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
 const ProductSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       trim: true,
-      required: [true, 'Please provide product name'],
+      required: [true, 'Please provide vendor name'],
       maxlength: [100, 'Name can not be more than 100 characters'],
     },
-    price: {
+    contact: {
       type: Number,
-      required: [true, 'Please provide product price'],
+      required: [true, 'Please provide the contact number'],
       default: 0,
+    },
+    email: {
+      type: String,
+      // unique: true,
+      required: [true, 'Please provide email'],
+      // validate: {
+      //   validator: validator.isEmail,
+      //   message: 'Please provide valid email',
+      // },
     },
     description: {
       type: String,
@@ -25,47 +35,47 @@ const ProductSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Please provide product category'],
-      enum: ['office', 'kitchen', 'bedroom'],
+      enum: ['Photography', 'Dining', 'Venue', 'Decoration','Music', 'ClothingDesigner','MakeoverArtist'],
     },
-    company: {
-      type: String,
-      required: [true, 'Please provide company'],
-      enum: {
-        values: ['ikea', 'liddy', 'marcos'],
-        message: '{VALUE} is not supported',
-      },
-    },
-    colors: {
-      type: [String],
-      default: ['#222'],
-      required: true,
-    },
-    featured: {
-      type: Boolean,
-      default: false,
-    },
-    freeShipping: {
-      type: Boolean,
-      default: false,
-    },
-    inventory: {
-      type: Number,
-      required: true,
-      default: 15,
-    },
-    averageRating: {
-      type: Number,
-      default: 0,
-    },
-    numOfReviews: {
-      type: Number,
-      default: 0,
-    },
-    user: {
-      type: mongoose.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
+    // company: {
+    //   type: String,
+    //   required: [true, 'Please provide company'],
+    //   enum: {
+    //     values: ['ikea', 'liddy', 'marcos'],
+    //     message: '{VALUE} is not supported',
+    //   },
+    // },
+    // colors: {
+    //   type: [String],
+    //   default: ['#222'],
+    //   required: true,
+    // },
+    // featured: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+    // freeShipping: {
+    //   type: Boolean,
+    //   default: false,
+    // },
+    // inventory: {
+    //   type: Number,
+    //   required: true,
+    //   default: 15,
+    // },
+    // averageRating: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // numOfReviews: {
+    //   type: Number,
+    //   default: 0,
+    // },
+    // user: {
+    //   type: mongoose.Types.ObjectId,
+    //   ref: 'User',
+    //   required: true,
+    // },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );

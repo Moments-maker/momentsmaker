@@ -43,13 +43,13 @@
 
 - [] create controllers folder
 - [] add authController file
-- [] export (register,login,logout) functions
+- [] export (register,login,logout,forgotPassword) functions
 - [] res.send('some string value')
 - [] create routes folder
 - [] setup authRoutes file
 - [] import all controllers
 - [] setup three routes
-- [] post('/register') post('/login') get('/logout')
+- [] post('/register') post('/login') get('/logout') get('/forgotPassword')
 - [] import authRoutes as authRouter in the app.js
 - [] setup app.use('/api/v1/auth', authRouter)
 
