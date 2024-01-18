@@ -8,6 +8,9 @@ module.exports = {
         'backgroundLogin': "url('../src/assets/Background.png')",
         'about': "url('../src/assets/About.jpg')",
        }),
+       fontFamily: {
+        display: ["Dongle", "sans-serif"],
+      },
     },
   },
   plugins: [],

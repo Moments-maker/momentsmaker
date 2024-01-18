@@ -18,6 +18,7 @@ import Mua from './Components/services/Mua';
 import Music from './Components/services/Music';
 import Designer from './Components/services/Designer';
 import Officiate from './Components/services/Officiate';
+import Dining from './Components/services/Dining';
 
 
 import Wedding from './Components/events/Wedding';
@@ -68,6 +69,7 @@ function App() {
           <Route path="/PostAd" element={<PostAd/>}></Route>
           
           <Route path="/Photography" element={<Photography/>}></Route>
+          <Route path="/Dining" element={<Dining/>}></Route>
           <Route path="/Venue" element={<Venue/>}></Route>
           <Route path="/Decoration" element={<Decoration/>}></Route>
           <Route path="/Mua" element={<Mua/>}></Route>

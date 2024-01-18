@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 // import { } from 'react-router-dom';
 import About from '../about/About';
 import profile from "../../assets/Profile.png";
+import logo from "../../assets/Logo.png";
 import {
   useNavigate,
 } from 'react-router-dom';
@@ -72,23 +73,25 @@ const Homepage = () => {
       >
         <div className="flex justify-between items-center w-full h-19 px-4   fixed">
 
-          <div>
-            <h1 className="text-3xl text-grey-500 font-signature ml-2">Moments </h1>
-            <div><h1 className="text-3xl text-grey-500 font-signature ml-2">Maker </h1></div>
+          <div className='flex justify-left'>
+            {/* <h1 className="text-4xl text-grey-500 font-signature ml-2">Moments </h1>
+            <div><h1 className="text-4xl text-grey-500 font-signature ml-2">Maker </h1></div> */}
+            <img src={logo} alt="Logo" width="150" height="150"></img>
           </div>
-          <ul className="flex space-x-4 hidden md:flex px-4 text-black">
-            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
-            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-            {localStorage.getItem("authToken") ? <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Events">Events</a></li>
+          
+          <ul className="flex space-x-4 hidden md:flex px-4 text-[#E10C69]">
+            <li className='cursor-pointer capitalize font-medium  hover:scale-105 duration-200 text-[#E10C69] text-2xl'><a href="/">Home</a></li>
+            <li className='cursor-pointer capitalize font-medium  hover:scale-105 duration-200 text-[#E10C69] text-2xl'><a href="/About">About</a></li>
+            {localStorage.getItem("authToken") ? <li className='cursor-pointer capitalize font-medium  text-[#E10C69] hover:scale-105 duration-200 text-2xl'><a href="/Events">Events</a></li>
               :
-              <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Events</a></li>}
+              <li className='cursor-pointer capitalize font-medium text-[#E10C69] hover:scale-105 duration-200 text-2xl'><a href="/Login">Events</a></li>}
             {localStorage.getItem("authToken") ?
               <li><Button id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleProfile}>
-                <img src={profile} alt="alt text" width={35} height={35}></img>
+                <img src={profile} alt="alt text" width={40} height={40}></img>
               </Button>
                 <Menu
                   id="basic-menu"
@@ -105,7 +108,7 @@ const Homepage = () => {
                     Logout
                   </MenuItem>
                 </Menu></li> :
-              <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200'><a href="/Login">Sign In</a></li>
+              <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Login">Sign In</a></li>
 
             }
           </ul>
@@ -136,13 +139,13 @@ const Homepage = () => {
             </ul>
           )}
         </div>
-        <div className="max-w-screen-lg mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-black">
+        <div className="max-w-screen-xl mx-auto flex flex-col items-center justify-center h-full px-4 md:flex-row w-full text-black">
           <div className="flex flex-col justify-center h-full">
-            <h2 className="text-4xl sm:text-6xl font-bold text-black">
+            <h2 className=" text-7xl font-bold ">
               WELCOME TO MOMENTS MAKER
             </h2>
             <div className="grid grid-cols-2 gap-4" >
-              <p className="py-6 text-centre text-lg font-extrabold">
+              <p className="font-display py-6 text-[#E10C69] text-centre text-3xl font-extrabold">
                 One Stop destination to plan your events
               </p>
             </div>
@@ -156,10 +159,8 @@ const Homepage = () => {
         </div>
 
       </div>
-      <About />
     </div>
   )
 
 }
-<About />
 export default Homepage

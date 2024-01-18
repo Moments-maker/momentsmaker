@@ -14,7 +14,11 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import { Image } from 'cloudinary-react';
-
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import logo from "../../assets/Logo.png";
+import Button from '@mui/material/Button';
+import profile from "../../assets/Profile.png";
 import {
     useNavigate,
 } from 'react-router-dom';
@@ -42,10 +46,15 @@ const Photography = ({ route }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [expanded, setExpanded] = React.useState(false);
-
-
+    const param = localStorage.getItem("name");
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    
     const handleExpandClick = () => {
         setExpanded(!expanded);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
     };
     const links = [
         {
@@ -70,6 +79,20 @@ const Photography = ({ route }) => {
         },
     ];
 
+    const handleProfile = (event) => {
+        setAnchorEl(event.currentTarget);
+        console.log("clicked")
+    }
+    const handleProfileInfo = (event) => {
+        navigate('/user')
+    }
+    const handleLogout = async () => {
+        const url = "http://localhost:5000/api/v1/auth/logout";
+        await fetch(url);
+        localStorage.removeItem('authToken');
+        alert("user logged out");
+        navigate('/')
+    }
 
     const fetchData = async () => {
         await fetch(BASE_URL)
@@ -91,73 +114,72 @@ const Photography = ({ route }) => {
         localStorage.getItem("authToken") && loading ?
             <div
                 name="skills"
-                className=" w-full h-screen "
+                className=" w-full bg-[#ffe7e3]"
             >
 
-                <div className="flex justify-between items-center w-full h-21 px-4 ">
+                <div className="flex justify-between items-center w-full h-19 px-4">
+
                     <div>
-                        <h1 className="text-3xl font-signature text-gray-500 ml-2">Moments </h1>
-                        <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
+                        <img src={logo} alt="Logo" width="150" height="150"></img>
                     </div>
-                    <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
-                        PHOTOGRAPHY
+                    <div className="flex justify-center text-5xl ml-10 font-bold content-center text-[#E10C69]">
+                            PHOTOGRAPHY
 
                     </div>
-                    <ul className="flex space-x-4 hidden md:flex px-4 text-black">
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/PostAd">Post Ad</a></li>
-                    </ul>
-                    <div
-                        onClick={() => setNav(!nav)}
-                        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-                    >
-                        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                    </div>
 
-                    {nav && (
-                        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-                            {links.map(({ id, link, path }) => (
-
-                                <li
-                                    key={id}
-                                    className="px-4 cursor-pointer capitalize py-6 text-4xl"
+                    <ul className="flex space-x-4 hidden md:flex px-4 text-[#E10C69]">
+                        <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/">Home</a></li>
+                        <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/About">About</a></li>
+                        {localStorage.getItem("authToken") ? <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Events">Events</a></li>
+                            :
+                            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Login">Events</a></li>}
+                        {localStorage.getItem("authToken") ?
+                            <li><Button id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleProfile}>
+                                <img src={profile} alt="alt text" width={40} height={40}></img>
+                            </Button>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
                                 >
-                                    <Link
-                                        onClick={() => setNav(!nav)}
-                                        to={"/"}
-                                        smooth
-                                        duration={500}
-                                    >
-                                        {path}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                                    <MenuItem onClick={handleClose}>Hi {param}</MenuItem>
+                                    <MenuItem onClick={handleProfileInfo}>My account</MenuItem>
+                                    <MenuItem onClick={handleLogout}>
+                                        Logout
+                                    </MenuItem>
+                                </Menu></li> :
+                            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Login">Sign In</a></li>
+
+                        }
+                    </ul>
+
+            
                 </div>
-                <div className='flex center'>
+               
+                <div className="font-general max-w-screen-xl mx-auto p-4 flex flex-col justify-center w-full ">
 
-                </div>
-                <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
-
-                    <div>
-                    </div>
-                    <br></br>
-
+                    
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">
 
 
                         {data.map(({ id, contact, email, description, name, image }) => (
 
-                            <Card sx={{ maxWidth: 700 }} key={id}>
+                            <Card sx={{ maxWidth: 900 }} key={id}>
                                 <CardHeader
                                     avatar={
                                         <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
                                             {name[0]}
                                         </Avatar>
                                     }
-                                    
+
                                     title={name}
                                 // subheader={createdAt}
                                 />
@@ -179,7 +201,7 @@ const Photography = ({ route }) => {
                                         CONTACT : {contact}
 
                                     </Typography>
-                                    <Typography className="flex align-right"variant="body2" color="text.secondary" size="small">EMAIL : {email}</Typography>
+                                    <Typography className="flex align-right" variant="body2" color="text.secondary" size="small">EMAIL : {email}</Typography>
                                 </CardContent>
                                 <CardActions disableSpacing>
                                     <IconButton aria-label="add to favorites">
@@ -198,26 +220,6 @@ const Photography = ({ route }) => {
                                     </ExpandMore>
                                 </CardActions>
                             </Card>
-                            // <div key={id} className="flex items-right justify-right  bg-purple-300 h-52 w-60">
-                            //     <div className="group h-52 w-60 [perspective:1000px]">
-                            //         <div className="relative h-52 w-60  shadow-xl transition-all duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                            //             <div className="absolute inset-0 py-2">
-                            //                 <p className="text-sm py-4">Name : {name}</p>
-                            //                 <p className="text-sm py-4">Email : {email}</p>
-                            //                 <p className="text-sm py-4">Contact : {contact}</p>
-                            //                 <p className="text-sm py-4">Description : {description}</p>
-                            //                                                         </div>
-                            //             <div className="absolute inset-0 h-full w-full  bg-black/80 px-12 text-slate-200 [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                            //                 <div className="flex min-h-full flex-col">
-                            //                     <p className="text-sm py-4">Email : {email}</p>
-                            //                     <p className="text-sm py-4">Contact : {contact}</p>
-                            //                     <p className="text-sm py-4">Description : {description}</p>
-                            //                     <p className="text-base"></p>
-                            //                 </div>
-                            //             </div>
-                            //         </div>
-                            //     </div>
-                            // </div>
                         ))}
                     </div>
                 </div>

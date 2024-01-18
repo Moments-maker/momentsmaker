@@ -15,14 +15,18 @@ import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import { Image } from 'cloudinary-react';
 import { Button } from '@mui/material';
+import logo from "../../assets/Logo.png";
 
 import Dialog from '@mui/material/Dialog';
+import Menu from '@mui/material/Menu';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import MenuItem from '@mui/material/MenuItem';
+import profile from "../../assets/Profile.png";
 
 import {
     useNavigate,
@@ -32,6 +36,7 @@ const User = ({ route }) => {
 
     const [open, setOpen] = React.useState(false);
     const [deletePost, setDeletePost] = useState(null);
+    const param = localStorage.getItem("name");
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -69,6 +74,7 @@ const User = ({ route }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [expanded, setExpanded] = React.useState(false);
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
 
     const handleExpandClick = () => {
@@ -134,89 +140,76 @@ const User = ({ route }) => {
         // alert("Post successfully deleted")
     };
 
+    const handleProfile = (event) => {
+        setAnchorEl(event.currentTarget);
+        console.log("clicked")
+    }
+    const handleProfileInfo = (event) => {
+        navigate('/user')
+    }
+    const handleLogout = async () => {
+        const url = "http://localhost:5000/api/v1/auth/logout";
+        await fetch(url);
+        localStorage.removeItem('authToken');
+        alert("user logged out");
+        navigate('/')
+    }
+
+
     return (
         localStorage.getItem("authToken") && loading ?
             <div
                 name="skills"
-                className=" w-full h-screen "
+                className=" w-full h-screen bg-[#ffe7e3]"
             >
 
-                <div className="flex justify-between items-center w-full h-21 px-4 ">
+                <div className="flex justify-between items-center w-full h-19 px-4 ">
+
                     <div>
-                        <h1 className="text-3xl font-signature text-gray-500 ml-2">Moments </h1>
-                        <h1 className="text-3xl font-signature text-gray-500 ml-2">Maker </h1>
+                        <img src={logo} alt="Logo" width="150" height="150"></img>
                     </div>
-                    <div className=" flex justify-center text-3xl ml-10 font-bold content-center text-purple-500">
+                    <div className="flex justify-center text-5xl ml-10 font-bold content-center text-[#E10C69]">
                         MY PROFILE
 
                     </div>
-                    <ul className="flex space-x-4 hidden md:flex px-4 text-black">
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/">Home</a></li>
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/About">About</a></li>
-                        <li className='cursor-pointer capitalize font-medium text-lg text-purple-500 hover:scale-105 duration-200'><a href="/PostAd">Post Ad</a></li>
-                    </ul>
-                    <div
-                        onClick={() => setNav(!nav)}
-                        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-                    >
-                        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                    </div>
 
-                    {nav && (
-                        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-                            {links.map(({ id, link, path }) => (
-
-                                <li
-                                    key={id}
-                                    className="px-4 cursor-pointer capitalize py-6 text-4xl"
+                    <ul className="flex space-x-4 hidden md:flex px-4 text-[#E10C69]">
+                        <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/">Home</a></li>
+                        <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/About">About</a></li>
+                        {localStorage.getItem("authToken") ? <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Events">Events</a></li>
+                            :
+                            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Login">Events</a></li>}
+                        {localStorage.getItem("authToken") ?
+                            <li><Button id="basic-button"
+                                aria-controls={open ? 'basic-menu' : undefined}
+                                aria-haspopup="true"
+                                aria-expanded={open ? 'true' : undefined}
+                                onClick={handleProfile}>
+                                <img src={profile} alt="alt text" width={40} height={40}></img>
+                            </Button>
+                                <Menu
+                                    id="basic-menu"
+                                    anchorEl={anchorEl}
+                                    open={open}
+                                    onClose={handleClose}
+                                    MenuListProps={{
+                                        'aria-labelledby': 'basic-button',
+                                    }}
                                 >
-                                    <Link
-                                        onClick={() => setNav(!nav)}
-                                        to={"/"}
-                                        smooth
-                                        duration={500}
-                                    >
-                                        {path}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
-                <div className='flex center'>
+                                    <MenuItem onClick={handleClose}>Hi {param}</MenuItem>
+                                    <MenuItem onClick={handleProfileInfo}>My account</MenuItem>
+                                    <MenuItem onClick={handleLogout}>
+                                        Logout
+                                    </MenuItem>
+                                </Menu></li> :
+                            <li className='cursor-pointer capitalize font-medium text-grey-500 hover:scale-105 duration-200 text-2xl'><a href="/Login">Sign In</a></li>
+
+                        }
+                    </ul>
+
 
                 </div>
                 <div className="font-general max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full ">
-                    <div className="flex justify-between items-center w-full h-19 px-4  fixed">
-                        <div
-                            onClick={() => setNav(!nav)}
-                            className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
-                        >
-                            {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
-                        </div>
-
-                        {nav && (
-                            <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-blue to-blue-800 text-gray-500">
-                                {links.map(({ id, link }) => (
-                                    <li
-                                        key={id}
-                                        className="px-4 cursor-pointer capitalize py-6 text-4xl"
-                                    >
-                                        <Link
-                                            onClick={() => setNav(!nav)}
-                                            to={link}
-                                            smooth
-                                            duration={500}
-                                        >
-                                            {link}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                    <div>
-                    </div>
                     <br></br>
                     {Array.isArray(data) && data.length > 0} ?
                     <div className="w-full grid grid-cols-4 sm:grid-cols-4 gap-16 text-white text-center py-16 px-12 sm:px-0">

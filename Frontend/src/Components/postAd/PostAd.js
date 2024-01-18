@@ -15,7 +15,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import axios from 'axios';
-
+import logo from "../../assets/Logo.png";
+import Menu from '@mui/material/Menu';
 // import "./login.css";
 import Cookies from 'universal-cookie';
 import profile from "../../assets/Profile.png";
@@ -44,8 +45,10 @@ const PostAd = () => {
     const [showPassword, setShowPassword] = React.useState(false);
     const [fileUrl, setFileUrl] = useState('');
     const [open, setOpen] = React.useState(false);
-    const navigate = useNavigate()
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
+    const navigate = useNavigate()
+    const param = localStorage.getItem("name");
     const ITEM_HEIGHT = 48;
     const ITEM_PADDING_TOP = 8;
     const MenuProps = {
@@ -82,17 +85,6 @@ const PostAd = () => {
     }
 
     const theme = useTheme();
-    // const [category, setcategory] = React.useState([]);
-
-    // const handleChange = (event) => {
-    //     const {
-    //         target: { value },
-    //     } = event;
-    //     setCategory(
-    //         // On autofill we get a stringified value.
-    //         typeof value === 'string' ? value.split(',') : value,
-    //     );
-    // };
     const handleUploadImage = (files) => {
         console.log(files[0])
         const formdata = new FormData();
@@ -156,6 +148,23 @@ const PostAd = () => {
         setOpen(true);
     };
 
+    const handleProfile = (event) => {
+        setAnchorEl(event.currentTarget);
+        console.log("clicked");
+        // alert(param);
+    }
+    const handleProfileInfo = (event) => {
+        navigate('/user')
+    }
+    const handleLogout = async () => {
+        const url = "http://localhost:5000/api/v1/auth/logout";
+        await fetch(url);
+        localStorage.removeItem('authToken');
+        alert("user logged out");
+        navigate('/')
+    }
+
+
     const handleClose = () => {
 
         setOpen(false);
@@ -180,162 +189,179 @@ const PostAd = () => {
 
 
             <div className="flex bg-[#ffe7e3] min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-                {/* <div className="flex justify-between items-center w-full h-19 px-4   fixed"> */}
-                <div>
-                    <h1 className="text-3xl text-black font-signature ml-2">Moments </h1>
-                    <div><h1 className="text-3xl text-black font-signature ml-2">Maker </h1></div>
-                    
+                <div className="flex justify-between items-center w-full h-21 px-4">
+                    <div>
+                        {/* <h1 className="text-3xl font-signature text-black ml-2">Moments </h1>
+                        <h1 className="text-3xl font-signature text-black ml-2">Maker </h1> */}
+                        <img src={logo} alt="Logo" width="150" height="150"></img>
+                    </div>
+                    <div className="flex justify-center text-4xl ml-10 font-bold content-center text-[#E10C69]">
+                      POST YOUR ADVERTISEMENT
+
+                    </div>
+                    <ul className="flex space-x-4 hidden md:flex px-4 text-black">
+                        <li className='cursor-pointer capitalize font-medium  hover:scale-105 duration-200 text-[#E10C69] text-2xl'><a href="/">Home</a></li>
+                        <li className='cursor-pointer capitalize font-medium  hover:scale-105 duration-200 text-[#E10C69] text-2xl'><a href="/About">About</a></li>
+                        <li className='cursor-pointer capitalize font-medium  hover:scale-105 duration-200 text-[#E10C69] text-2xl'><a href="/Events">Events</a></li>
+                        <Button id="basic-button"
+                            aria-controls={open ? 'basic-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                            onClick={handleProfile}>
+                            <img src={profile} alt="alt text" width={35} height={35}></img>
+                        </Button>
+                        <Menu
+                            id="basic-menu"
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                        >
+                            <MenuItem onClick={handleClose}>Hi {param}</MenuItem>
+                            <MenuItem onClick={handleProfileInfo}>My account</MenuItem>
+                            <MenuItem onClick={handleLogout}>
+                                {/* <ListItemIcon>
+                                    <Logout fontSize="small" />
+                                </ListItemIcon> */}
+                                Logout
+                            </MenuItem>
+                        </Menu>
+
+                    </ul>
                 </div>
-                
-                <Paper elevation={3} width={66}>
-                <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Post your Advertisement
-                    </h2>
-                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    </div>
-                    <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" onSubmit={handleSubmit} method="POST">
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Vendor Name
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="name"
-                                        name="name"
-                                        type="name"
-                                        autoComplete="name"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={name} onChange={(e) => setName(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Vendor Description
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="description"
-                                        name="description"
-                                        type="description"
-                                        autoComplete="description"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={description} onChange={(e) => setDescription(e.target.value)}
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                {/* <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
-                                Category
-                            </label> */}
-                                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-center h-full" >
+                <Paper elevation={3} className='flex flex-col items-center p-10'>
+                   
+                   <div className="mt-10 mx-auto max-w-md w-96 flex justify-center">
+                       <form className="space-y-6" onSubmit={handleSubmit} method="POST">
+                           <div>
+                               <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
+                                   Vendor Name
+                               </label>
+                               <div className="mt-2">
+                                   <input
+                                       id="name"
+                                       name="name"
+                                       type="name"
+                                       autoComplete="name"
+                                       required
+                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                       value={name} onChange={(e) => setName(e.target.value)}
+                                   />
+                               </div>
+                           </div>
+                           <div>
+                               <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
+                                   Vendor Description
+                               </label>
+                               <div className="mt-2">
+                                   <input
+                                       id="description"
+                                       name="description"
+                                       type="description"
+                                       autoComplete="description"
+                                       required
+                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                       value={description} onChange={(e) => setDescription(e.target.value)}
+                                   />
+                               </div>
+                           </div>
+                           <div>
+                               <div className="flex items-center justify-between">
 
-                                    {/* <div className="mt-2">
-                                    <input
-                                        id="description"
-                                        name="description"
-                                        type="description"
-                                        autoComplete="description"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={category} onChange={(e) => setCategory(e.target.value)}
-                                    />
-                                </div> */}
-                                    <Box sx={{ minWidth: 120 }}>
-                                        <FormControl fullWidth>
-                                            <InputLabel id="demo-simple-select-label">Category</InputLabel>
-                                            <Select
-                                                labelId="demo-simple-select-label"
-                                                id="demo-simple-select"
-                                                value={category}
-                                                label="Category"
-                                                onChange={handleChange}
-                                            >
-                                                <MenuItem value={'Photography'}>Photography</MenuItem>
-                                                <MenuItem value={"Venue"}>Venue</MenuItem>
-                                                <MenuItem value={"Catering"}>Catering</MenuItem>
-                                                <MenuItem value={"Decoration"}>Decoration</MenuItem>
-                                                <MenuItem value={"Music"}>Music</MenuItem>
-                                                <MenuItem value={"ClothingDesigner"}>ClothingDesigner</MenuItem>
-                                                <MenuItem value={"MakeoverArtist"}>MakeoverArtist</MenuItem>
-                                                {/* <MenuItem value={"Dining"}>Dining</MenuItem> */}
-                                            </Select>
-                                        </FormControl>
-                                    </Box>
-                                </div>
-                                <div className="mt-2">
+                                   <Box sx={{ minWidth: 120 }}>
+                                       <FormControl fullWidth>
+                                           <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                                           <Select
+                                               labelId="demo-simple-select-label"
+                                               id="demo-simple-select"
+                                               value={category}
+                                               label="Category"
+                                               onChange={handleChange}
+                                           >
+                                               <MenuItem value={'Photography'}>Photography</MenuItem>
+                                               <MenuItem value={"Venue"}>Venue</MenuItem>
+                                               <MenuItem value={"Catering"}>Catering</MenuItem>
+                                               <MenuItem value={"Decoration"}>Decoration</MenuItem>
+                                               <MenuItem value={"Music"}>Music</MenuItem>
+                                               <MenuItem value={"ClothingDesigner"}>ClothingDesigner</MenuItem>
+                                               <MenuItem value={"MakeoverArtist"}>MakeoverArtist</MenuItem>
+                                               {/* <MenuItem value={"Dining"}>Dining</MenuItem> */}
+                                           </Select>
+                                       </FormControl>
+                                   </Box>
+                               </div>
+                           </div>
 
-                                </div>
-                            </div>
+                           <div>
+                               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                   Business Email
+                               </label>
+                               <div className="mt-2">
+                                   <input
+                                       id="email"
+                                       name="email"
+                                       type="email"
+                                       autoComplete="email"
+                                       required
+                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                       value={email} onChange={(e) => setEmail(e.target.value)}
+                                   />
+                               </div>
+                           </div>
 
-                            <div>
-                                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Business Email
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        autoComplete="email"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={email} onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </div>
+                           <div>
+                               <label htmlFor="contact" className="block text-sm font-medium leading-6 text-gray-900">
+                                   Contact
+                               </label>
+                               <div className="mt-2">
+                                   <input
+                                       id="contact"
+                                       name="contact"
+                                       type="contact"
+                                       autoComplete="contact"
+                                       required
+                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                       value={contact} onChange={(e) => setcontact(e.target.value)}
+                                   />
+                               </div>
+                           </div>
 
-                            <div>
-                                <label htmlFor="contact" className="block text-sm font-medium leading-6 text-gray-900">
-                                    contact
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="contact"
-                                        name="contact"
-                                        type="contact"
-                                        autoComplete="contact"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        value={contact} onChange={(e) => setcontact(e.target.value)}
-                                    />
-                                </div>
-                            </div>
+                           <div>
+                               <label htmlFor="uploadImage" className="block text-sm font-medium leading-6 text-gray-900">
+                                   Upload Image
+                               </label>
+                               <div className="mt-2">
+                                   <input
+                                       id="image"
+                                       name="image"
+                                       type="file"
+                                       autoComplete="contact"
+                                       required
+                                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                        onChange={(e) => handleUploadImage(e.target.files)}
+                                   />
+                                   
+                               </div>
+                               
+                           </div>
 
-                            <div>
-                                <label htmlFor="uploadImage" className="block text-sm font-medium leading-6 text-gray-900">
-                                    Upload Image
-                                </label>
-                                <div className="mt-2">
-                                    <input
-                                        id="image"
-                                        name="image"
-                                        type="file"
-                                        autoComplete="contact"
-                                        required
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                         onChange={(e) => handleUploadImage(e.target.files)}
-                                    />
-                                    
-                                </div>
-                                
-                            </div>
-
-                            <div>
-                                <button
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                                >
-                                    Post Ad
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </Paper>
+                           <div>
+                               <button
+                                   type="submit"
+                                   onClick={handleSubmit}
+                                   className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                               >
+                                   Post Ad
+                               </button>
+                           </div>
+                       </form>
+                   </div>
+               </Paper>
+                </div>
+             
             </div> :
             <div></div>
     )
